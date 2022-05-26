@@ -12,6 +12,7 @@ For this we recommend creating a separate Python environment, for example, you c
 Once you installed the package, run the command `mlflow --version` and check the output.
 
 What's the version that you have?
+1.26.0
 
 
 ## Q2. Download and preprocess the data
@@ -40,7 +41,7 @@ How many files were saved to `OUTPUT_FOLDER`?
 
 * 1
 * 3
-* 4
+* 4 <-
 * 7
 
 
@@ -59,7 +60,7 @@ Tip 2: don't modify the hyperparameters of the model to make sure that the train
 How many parameters are automatically logged by MLflow?
 
 * 19
-* 17
+* 17 <-
 * 10
 * 20
 
@@ -77,7 +78,7 @@ You should keep the tracking server running to work on the next two exercises th
 
 In addition to `backend-store-uri`, what else do you need to pass to properly configure the server?
 
-* `default-artifact-root`
+* `default-artifact-root` <-
 * `serve-artifacts`
 * `artifacts-only`
 * `artifacts-destination`
@@ -103,7 +104,7 @@ The idea is to just log the information that you need to answer the question bel
 What's the best validation RMSE that you got?
 
 * 6.128
-* 6.628
+* 6.628 <-
 * 7.128
 * 7.628
 
@@ -119,8 +120,8 @@ Tip 2: to register the model you can use the method `mlflow.register_model` and 
 
 What is the test RMSE of the best model?
 
-* 6.1
-* 6.55
+* 6.1 
+* 6.55 <-
 * 7.93
 * 15.1
 

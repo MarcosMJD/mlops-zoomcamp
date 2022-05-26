@@ -65,10 +65,16 @@ def run(data_path, log_top):
 
     # select the model with the lowest test RMSE
     experiment = client.get_experiment_by_name(EXPERIMENT_NAME)
-    # best_run = client.search_runs( ...  )[0]
+    
+    runs = client.search_runs(
+        experiment_ids=experiment.experiment_id,
+        run_view_type=ViewType.ACTIVE_ONLY,
+        order_by=["metrics.test_rmse ASC"]
+    )
+    
+    model_uri = f'runs:/{runs[0].info.run_id}/model'
+    mlflow.register_model(model_uri, 'nytaxi_random_forest_regressor')
 
-    # register the best model
-    # mlflow.register_model( ... )
 
 
 if __name__ == '__main__':
