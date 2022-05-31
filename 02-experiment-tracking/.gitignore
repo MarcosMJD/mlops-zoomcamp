@@ -1,2 +1,6 @@
-*/
+mlruns/
+models/
+artifacts/
+output/
+preprocessor/
 *.db

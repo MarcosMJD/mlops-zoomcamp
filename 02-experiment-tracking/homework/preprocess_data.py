@@ -55,7 +55,7 @@ def run(raw_data_path: str, dest_path: str, dataset: str = "green"):
     y_test = df_test[target].values
 
     # fit the dictvectorizer and preprocess data
-    dv = DictVectorizer()
+    dv = DictVectorizer(sparse=True)
     X_train, dv = preprocess(df_train, dv, fit_dv=True)
     X_valid, _ = preprocess(df_valid, dv, fit_dv=False)
     X_test, _ = preprocess(df_test, dv, fit_dv=False)
@@ -75,10 +75,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--raw_data_path",
+        default="./data",
         help="the location where the raw NYC taxi trip data was saved"
     )
     parser.add_argument(
         "--dest_path",
+        default="./output",
         help="the location where the resulting files will be saved."
     )
     args = parser.parse_args()
