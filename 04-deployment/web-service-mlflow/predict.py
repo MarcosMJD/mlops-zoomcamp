@@ -4,7 +4,6 @@ import pickle
 import mlflow
 from flask import Flask, request, jsonify
 
-
 RUN_ID = os.getenv('RUN_ID')
 
 logged_model = f's3://mlflow-models-alexey/1/{RUN_ID}/artifacts/model'

@@ -11,6 +11,6 @@ RUN pipenv install --system --deploy
 
 COPY [ "predict.py", "lin_reg.bin", "./" ]
 
-EXPOSE 9696
+EXPOSE 9000
 
-ENTRYPOINT [ "gunicorn", "--bind=0.0.0.0:9696", "predict:app" ]
+ENTRYPOINT [ "gunicorn", "--bind=0.0.0.0:9000", "predict:app" ]
