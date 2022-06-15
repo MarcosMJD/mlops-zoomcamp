@@ -11,4 +11,5 @@ credentials/
 .venv
 venv
 .idea
-02-experiment-tracking/running-mlflow-examples/run_server.txt
+**/artifacts/
+**/models/
