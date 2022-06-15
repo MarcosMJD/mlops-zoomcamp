@@ -1,1 +1,0 @@
-# Launch server in EC2 host with mlflow server -h 0.0.0.0 -p 5000 --backend-store-uri postgresql://mlops:qV5vLLwOrHr1VkMifxOi@mlflow.c5xv0785gcuv.eu-west-1.rds.amazonaws.com:5432/mlflow --default-artifact-root s3://mlops-bucket-mmjd

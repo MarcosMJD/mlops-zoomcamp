@@ -4,3 +4,4 @@ artifacts/
 output/
 preprocessor/
 *.db
+running-mlflow-examples/run_server.txt
