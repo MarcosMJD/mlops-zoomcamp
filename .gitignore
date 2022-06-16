@@ -1,6 +1,7 @@
 data/
 credentials/
 .ipynb_checkpoints
+*.pyc
 .bin
 *.db
 

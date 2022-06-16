@@ -58,6 +58,23 @@ aws kinesis put-record \
     }'
 ```
 
+In Powershell use:
+```
+$env:KINESIS_STREAM_INPUT="ride_events"
+aws kinesis put-record --cli-binary-format raw-in-base64-out `
+    --stream-name $env:KINESIS_STREAM_INPUT `
+    --partition-key 1 `
+    --data '{ 
+        \"ride\": { 
+            \"PULocationID\": 130, 
+            \"DOLocationID\": 205, 
+            \"trip_distance\": 3.66 
+        },  
+        \"ride_id\": 156 
+    }'
+```
+
+
 Test event:
 
 ```json
@@ -100,7 +117,7 @@ SHARD_ITERATOR=$(aws kinesis \
 
 RESULT=$(aws kinesis get-records --shard-iterator $SHARD_ITERATOR)
 
-echo ${RESULT} | jq -r '.Records[0].Data' | base64 --decode
+echo ${RESULT} | ./jq-win64.exe -r '.Records[0].Data' | base64 --decode
 ``` 
 
 Running the test
@@ -122,7 +139,7 @@ docker build -t stream-model-duration:v1 .
 docker run -it --rm \
     -p 8080:8080 \
     -e PREDICTIONS_STREAM_NAME="ride_predictions" \
-    -e RUN_ID="e1efc53e9bd149078b0c12aeaa6365df" \
+    -e RUN_ID="6574d0d7c4b044f585c08de11b3582c4" \
     -e TEST_RUN="True" \
     -e AWS_DEFAULT_REGION="eu-west-1" \
     stream-model-duration:v1
@@ -130,7 +147,7 @@ docker run -it --rm \
 docker run -it --rm \
     -p 8080:8080 \
     -e PREDICTIONS_STREAM_NAME="ride_predictions" \
-    -e RUN_ID="e1efc53e9bd149078b0c12aeaa6365df" \
+    -e RUN_ID="6574d0d7c4b044f585c08de11b3582c4" \
     -e TEST_RUN="True" \
     -e AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
     -e AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
@@ -149,16 +166,37 @@ Creating an ECR repo
 aws ecr create-repository --repository-name duration-model
 ```
 
+Keep the uri of the repository so that docker can push the image later on. E.g.:
+```
+546106488772.dkr.ecr.eu-west-1.amazonaws.com/duration-model
+```
+
 Logging in
+
+To log in to an Amazon ECR registry
+
+get-login (deprecated
+This command retrieves an authentication token using the GetAuthorizationToken API, and then it prints a docker login command with the authorization token and, if you specified a registry ID, the URI for an Amazon ECR registry. You can execute the printed command to authenticate to the registry with Docker. After you have authenticated to an Amazon ECR registry with this command, you can use the Docker CLI to push and pull images to and from that registry as long as your IAM principal has access to do so until the token expires. The authorization token is valid for 12 hours.
 
 ```bash
 $(aws ecr get-login --no-include-email)
 ```
 
+get-login-password
+This command retrieves and displays an authentication token using the GetAuthorizationToken API that you can use to authenticate to an Amazon ECR registry. You can pass the authorization token to the login command of the container client of your preference, such as the Docker CLI. After you have authenticated to an Amazon ECR registry with this command, you can use the client to push and pull images from that registry as long as your IAM principal has access to do so until the token expires. The authorization token is valid for 12 hours.
+
+```bash
+aws ecr get-login-password \
+    --region eu-west-1\
+| docker login \
+    --username AWS \
+    --password-stdin 546106488772.dkr.ecr.eu-west-1.amazonaws.com
+```
+
 Pushing 
 
 ```bash
-REMOTE_URI="387546586013.dkr.ecr.eu-west-1.amazonaws.com/duration-model"
+REMOTE_URI="546106488772.dkr.ecr.eu-west-1.amazonaws.com/duration-model"
 REMOTE_TAG="v1"
 REMOTE_IMAGE=${REMOTE_URI}:${REMOTE_TAG}
 
@@ -166,3 +204,9 @@ LOCAL_IMAGE="stream-model-duration:v1"
 docker tag ${LOCAL_IMAGE} ${REMOTE_IMAGE}
 docker push ${REMOTE_IMAGE}
 ```
+
+Write down the ecr image uri (with tag):
+```
+546106488772.dkr.ecr.eu-west-1.amazonaws.com/duration-model:v1
+```
+
