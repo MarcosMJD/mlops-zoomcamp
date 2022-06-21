@@ -1,6 +1,7 @@
 data/
 credentials/
 .ipynb_checkpoints
+.vscode/
 *.pyc
 .bin
 *.db
