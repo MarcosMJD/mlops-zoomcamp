@@ -21,7 +21,7 @@ services:
       EVIDENTLY_SERVICE: "http://evidently_service.:8085"
       MONGODB_ADDRESS: "mongodb://mongo.:27017/"
     ports:
-      - "9696:9696"
+      - "9697:9696"
     networks:
       - back-tier
       - front-tier

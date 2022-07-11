@@ -22,7 +22,7 @@ with open("target.csv", 'w') as f_target:
         row['id'] = str(uuid.uuid4())
         duration = (row['lpep_dropoff_datetime'] - row['lpep_pickup_datetime']).total_seconds() / 60
         f_target.write(f"{row['id']},{duration}\n")
-        resp = requests.post("http://127.0.0.1:9696/predict",
+        resp = requests.post("http://127.0.0.1:9697/predict",
                              headers={"Content-Type": "application/json"},
                              data=json.dumps(row, cls=DateTimeEncoder)).json()
         print(f"prediction: {resp['duration']}")
