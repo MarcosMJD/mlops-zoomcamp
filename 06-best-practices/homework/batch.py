@@ -5,7 +5,6 @@ import sys
 import pickle
 import pandas as pd
 
-
 year = int(sys.argv[1])
 month = int(sys.argv[2])
 
