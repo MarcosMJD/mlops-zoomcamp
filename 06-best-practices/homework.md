@@ -21,6 +21,7 @@ Now we need to create the "main" block from which we'll invoke
 the main function. How does the `if` statement that we use for
 this looks like? 
 
+if __name__ == "__main__"
 
 Hint: after refactoring, check that the code still works. Just run
 it e.g. for Feb 2021 and see if it finishes successfully. 
@@ -44,6 +45,8 @@ Next, create a folder `tests` and create two files. One will be
 the file with tests. We can name if `test_batch.py`. 
 
 What should be the other file? 
+
+__init.py__
 
 Hint: to be able to test `batch.py`, we need to be able to
 import it. Without this other file, we won't be able to do it.
@@ -94,7 +97,7 @@ that the actual dataframe matches the expected one
 How many rows should be there in the expected dataframe?
 
 - 1
-- 2
+- 2 X
 - 3
 - 4
 
@@ -118,6 +121,8 @@ aws s3 mb s3://nyc-duration
 ```
 
 Adjust it for localstack. How does the command look like?
+
+aws --endpoint-url="http://localhost:4566" s3 mb s3://nyc-duration
 
 Check that the bucket was successfully created. With AWS, this is how we typically do it:
 
@@ -211,7 +216,7 @@ df_input.to_parquet(
 
 What's the size of the file?
 
-- 3512
+- 3512 X
 - 33512
 - 63512
 - 93512
@@ -238,6 +243,9 @@ The only thing we need to do now is to read this data and
 verify the result is correct. 
 
 What's the sum of predicted durations for the test dataframe?
+
+69.28869683240714
+
 
 
 ## Running the test (ungraded)
