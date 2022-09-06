@@ -1,3 +1,4 @@
+# Use with terraform plan -var-file="./vars/stg.tfvars"
 source_stream_name = "stg_ride_events"
 output_stream_name = "stg_ride_predictions"
 model_bucket = "stg-mlflow-models"

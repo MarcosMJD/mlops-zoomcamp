@@ -21,7 +21,7 @@ Now we need to create the "main" block from which we'll invoke
 the main function. How does the `if` statement that we use for
 this looks like? 
 
-if __name__ == "__main__"
+if __name__ == "__main__":
 
 Hint: after refactoring, check that the code still works. Just run
 it e.g. for Feb 2021 and see if it finishes successfully. 
@@ -46,7 +46,7 @@ the file with tests. We can name if `test_batch.py`.
 
 What should be the other file? 
 
-__init.py__
+__init__.py
 
 Hint: to be able to test `batch.py`, we need to be able to
 import it. Without this other file, we won't be able to do it.

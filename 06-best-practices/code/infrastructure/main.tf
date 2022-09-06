@@ -2,7 +2,7 @@
 terraform {
   required_version = ">= 1.0"
   backend "s3" {
-    bucket  = "tf-state-mlops-zoomcamp"
+    bucket  = "mmjd-tf-state-mlops-zoomcamp"
     key     = "mlops-zoomcamp-stg.tfstate"
     region  = "eu-west-1"
     encrypt = true
@@ -12,6 +12,9 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity
+# https://www.terraform.io/language/data-sources
 
 data "aws_caller_identity" "current_identity" {}
 
